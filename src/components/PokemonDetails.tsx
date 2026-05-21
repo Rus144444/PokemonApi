@@ -1,7 +1,25 @@
 import {useState, useEffect } from "react";
 
-export function PokemonDetails ({pokemon}) {
-    const [pokSel, setPokSel] = useState(null)
+type pokSelType = {
+    name: string
+    sprites: FrontDefaultType
+}
+
+type FrontDefaultType = {
+    front_default: string
+}
+
+type PokemonType = {
+    name: string
+    url: string
+}
+
+type PokemonDetailsProps = {
+  pokemon: PokemonType | null
+}
+
+export function PokemonDetails ({pokemon}: PokemonDetailsProps) {
+    const [pokSel, setPokSel] = useState<pokSelType | null>(null)
     
     useEffect(() => {
     if(!pokemon){

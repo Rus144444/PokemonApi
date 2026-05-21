@@ -4,11 +4,13 @@ import { PokemonDetails } from "./components/PokemonDetails";
 import { InputTitle } from "./components/InputTitle";
 import './App.css'
 
+type Pokemon = {
+  name: string
+  url: string
+}
+
 export function App() {  
-  const [selectedPokemon, setSelectedPokemon] = useState(null);
-  const [selectedPokemonUrl, setSelectedPokemonUrl] = useState(null);
-
-
+  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon|null>(null);
   return (
     <div style={{display: "flex", alignItems: "left", flexDirection: "column"}}>
       <div>
@@ -18,12 +20,9 @@ export function App() {
         <PokemonDetails pokemon={selectedPokemon} />
         <PokemonList
           setSelectedPokemon={setSelectedPokemon}
-          selectedPokemonUrl={selectedPokemonUrl}
-          setSelectedPokemonUrl={setSelectedPokemonUrl}
+          selectedPokemon={selectedPokemon}
         />
       </div>
     </div>
-
   );
 }
- 

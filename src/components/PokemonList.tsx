@@ -1,25 +1,43 @@
 import { useState, useEffect } from "react";
 
-export function PokemonList ({setSelectedPokemon, selectedPokemonUrl, setSelectedPokemonUrl}) {
-    const [pokemons, setPokemons] = useState(null);
+type ApiResults = {
+  name: string;
+  url: string;
+};
 
-    useEffect(() => {
+type PokemonListType = {
+  results: ApiResults[];
+};
+
+type PokemonListProps = {
+  setSelectedPokemon: (pokemon: ApiResults) => void;
+  selectedPokemon: ApiResults | null;
+};
+
+export function PokemonList({
+  setSelectedPokemon,
+  selectedPokemon,
+}: PokemonListProps) {
+  const [pokemons, setPokemons] = useState<ApiResults[]>([]);
+
+  useEffect(() => {
     fetch("https://pokeapi.co/api/v2/pokemon?limit=5")
       .then((res) => res.json())
-      .then((json) => {
+      .then((json: PokemonListType) => {
         setPokemons(json.results);
       });
-    }, []);
+  }, []);
 
+  return (
+    <ul style={{ listStyle: "none" }}>
+      {pokemons.length === 0 && <div>Loading...</div>}
 
-    return <ul style={{ listStyle: "none" }}>
-      {!pokemons && <div>Loading...</div>}
-      {pokemons?.map((pokemon) => (
+      {pokemons.map((pokemon) => (
         <li
           key={pokemon.url}
-          onClick={() => {setSelectedPokemon(pokemon); setSelectedPokemonUrl(pokemon.url)}}
+          onClick={() => setSelectedPokemon(pokemon)}
           style={
-            selectedPokemonUrl === pokemon.url
+            selectedPokemon?.url === pokemon.url
               ? { border: "2px solid red" }
               : {}
           }
@@ -28,4 +46,5 @@ export function PokemonList ({setSelectedPokemon, selectedPokemonUrl, setSelecte
         </li>
       ))}
     </ul>
+  );
 }
