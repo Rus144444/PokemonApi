@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { usePokemons } from "../BLL/usePokemons"
 import { PageTitle } from "./PageTitle";
-import { type PokemonListType, type ApiResults, getPokemons } from "../DAL/api";
+import type { ApiResults } from "../DAL/api";
 
 
 type PokemonListProps = {
@@ -8,43 +8,13 @@ type PokemonListProps = {
   selectedPokemon: ApiResults | null;
 };
 
-export function PokemonList({
-  setSelectedPokemon,
-  selectedPokemon,
-}: PokemonListProps) {
-  const [pokemons, setPokemons] = useState<ApiResults[]>([]);
-  const [isLoading, setIsLoading] = useState(false)
-  const [isError, setIsError] = useState<string|null>(null)
-
-  useEffect(() => {
-    setIsLoading(true)
-
-    setTimeout(()=> getPokemons()
-      .then((json: PokemonListType) => setPokemons(json.results))
-      .catch((error: Error) => setIsError(error.message))
-      .finally(()=> setIsLoading(false)), 5000)
-  }, []);
-
-  if(isError){
-    return (
-      <div>
-          <PageTitle title="Pomons list"/>
-          <div>error: {isError}</div>
-      </div>
-    )
-  }
-  if(isLoading){
-    return (
-            <div>
-                <PageTitle title="Pomons list"/>
-                <div>Loading...</div>
-            </div>
-        )
-    }
-
+export function PokemonList({setSelectedPokemon, selectedPokemon,}: PokemonListProps) {
+  const {isError, isLoading, pokemons} = usePokemons()
   return (
     <ul style={{ listStyle: "none" }}>
       <PageTitle title="Pomons list"/>
+      {isLoading && <div>Loading...</div>}
+      {isError && <div>error: {isError}</div>}
       {pokemons.map((pokemon) => (
         <li
           key={pokemon.url}

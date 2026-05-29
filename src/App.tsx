@@ -1,16 +1,10 @@
-import { useState} from "react";
+import { useSelectedPokemon } from "./BLL/useSelectedPokemon";
 import { PokemonList } from "./UI/PokemonList";
 import { PokemonDetails } from "./UI/PokemonDetails";
 import { PageTitle } from "./UI/PageTitle";
-import './App.css'
-
-type Pokemon = {
-  name: string
-  url: string
-}
 
 export function App() {  
-  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon|null>(null);
+  const {selectedPokemon, setSelectedPokemon} = useSelectedPokemon()
   return (
     <div style={{display: "flex", alignItems: "left", flexDirection: "column"}}>
       <div>
