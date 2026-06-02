@@ -1,8 +1,8 @@
 import {useState, useEffect } from "react";
-import {getPokemon, type PokSelType } from "../DAL/api"
+import {getPokemon, type ApiResults, type PokSelType } from "../DAL/api"
 
 
-export function usePokemonDetails (pokemon){
+export function usePokemonDetails (pokemon: ApiResults | null){
     const [pokSel, setPokSel] = useState<PokSelType | null>(null)
     const [isLoading, setIsLoading] = useState(false)
     const [isError, setIsError] = useState<string|null>(null)

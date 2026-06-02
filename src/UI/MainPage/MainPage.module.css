@@ -1,0 +1,10 @@
+.block {
+    display: flex;
+    align-items: left;
+    flex-direction: column;
+}
+
+.wrapper {
+    display: flex;
+    gap: 40px
+}

@@ -1,0 +1,7 @@
+.list {
+    list-style: none
+}
+
+.selectedPokemonBorder {
+    border: 2px solid red
+}

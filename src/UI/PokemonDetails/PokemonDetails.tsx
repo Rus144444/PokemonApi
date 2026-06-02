@@ -1,6 +1,6 @@
-import { usePokemonDetails } from "../BLL/usePokemonDetails";
-import { PageTitle } from "./PageTitle";
-import type { ApiResults,  } from "../DAL/api"
+import { usePokemonDetails } from "../../BLL/usePokemonDetails";
+import { PageTitle } from "../PageTitle/PageTitle";
+import type { ApiResults,  } from "../../DAL/api"
 
 type PokemonDetailsProps = {
   pokemon: ApiResults | null
